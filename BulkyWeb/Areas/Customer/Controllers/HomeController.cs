@@ -15,7 +15,10 @@ namespace BulkyWeb.Areas.Customer.Controllers
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
         }
 
         public IActionResult Index()
