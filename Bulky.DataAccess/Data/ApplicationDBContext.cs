@@ -1,11 +1,13 @@
 ﻿using Bulky.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bulky.DataAccess.Data
 {
     //DBContext is a root class of entity framework core using which we can access entity framework
     //Now our ApplicationDBContext now basically implements/inherits from DBContext class which is a built in class inside entity frameowrk core nuget package
-    public class ApplicationDBContext : DbContext
+    public class ApplicationDBContext : IdentityDbContext<IdentityUser>
     {
         //This is a constructor where we have to pass the connection string, we have connection string in appsettings.json which we need to pass to DBContext
         //When we will inject/configure the ApplicationDBContext we will get that connection string as a parameter in constructor as DBContextOption which we will be passing to the base class
@@ -24,6 +26,8 @@ namespace Bulky.DataAccess.Data
         //The below single line will create a table inside DB and this is the power of Entity Framework core
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         // On the Category list page we want to list all the categories, if we go to database we can edit top 200 rows and add the categories but rather than that Entity Framework Core provides us with some helper functions on if you have to seed some entities in your database
         // Here below the DbSet we will override the default function which is OnModelCreating and that expects some model builder
@@ -31,6 +35,8 @@ namespace Bulky.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             // In order to seed data we will be using model builder and there we have entity and we want to create or work on Category entity
             // We want to add some data inside the Category so we have a method HasData()
             // Inside HasData it expects a Category array an we want to create one object inside it
@@ -38,6 +44,14 @@ namespace Bulky.DataAccess.Data
                 new Category { Id = 1, Name = "Action", DisplayOrder = 1 },
                 new Category { Id = 2, Name = "SciFi", DisplayOrder = 2 },
                 new Category { Id = 3, Name = "History", DisplayOrder = 3 }
+
+                // **Must Remember** whenever anything needs to be updated in database we have to add a migration by using = add-migration SeedCategoryTable and after that to reflect the data in DB we will use = update-database
+                );
+
+            modelBuilder.Entity<Company>().HasData(
+                new Company { Id = 1, Name = "Sam Financial", StreetAddress = "83 Park Avenue", City="Tech City", PostalCode="14254", State="IL", PhoneNumber="5567842544" },
+                new Company { Id = 2, Name = "Vivid Books", StreetAddress = "99 Vivid St", City = "Vid City", PostalCode = "66542", State = "AT", PhoneNumber = "2221215825" },
+                new Company { Id = 3, Name = "Readers Club", StreetAddress = "54 City Street", City = "Arizona", PostalCode = "33215", State = "FS", PhoneNumber = "5524614643" }
 
                 // **Must Remember** whenever anything needs to be updated in database we have to add a migration by using = add-migration SeedCategoryTable and after that to reflect the data in DB we will use = update-database
                 );
