@@ -29,6 +29,8 @@ namespace Bulky.DataAccess.Data
         public DbSet<Company> Companies { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<OrderHeader> OrderHeaders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
 
         // On the Category list page we want to list all the categories, if we go to database we can edit top 200 rows and add the categories but rather than that Entity Framework Core provides us with some helper functions on if you have to seed some entities in your database
         // Here below the DbSet we will override the default function which is OnModelCreating and that expects some model builder
