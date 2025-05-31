@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bulky.Utility
 {
+    //here we have static details
     public static class SD
     {
         public const string Role_Customer = "Customer";
@@ -24,5 +25,7 @@ namespace Bulky.Utility
         public const string PaymentStatusApproved = "Approved";
         public const string PaymentStatusDelayedPayment = "ApprovedForDelayedPayment";
         public const string PaymentStatusRejected = "Rejected";
+
+        public const string SessionCart = "SessionShoppingCart";
     }
 }
