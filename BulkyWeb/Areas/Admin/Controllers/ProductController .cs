@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace BulkyWeb.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    //[Authorize(Roles = SD.Role_Admin)]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -129,9 +129,10 @@ namespace BulkyWeb.Areas.Admin.Controllers
             //return View();
 
         }
-        
+
+        //Here we have implemented API call to get all products and delete a product.
         #region API CALLS
-        
+
         [HttpGet]
         public IActionResult GetAll()
         {
