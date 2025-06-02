@@ -131,16 +131,7 @@ namespace BulkyWeb.Areas.Identity.Pages.Account
         // Get handler
         public async Task OnGetAsync(string returnUrl = null)
         {
-            // RoleExistsAsync is also a helper method
-            // we can also use await statement at the beginning of _roleManager here, but since we are calling it, we cannot do that so we used GetAwaiter
-            if (!_roleManager.RoleExistsAsync(SD.Role_Customer).GetAwaiter().GetResult())
-            {
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Customer)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Employee)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new IdentityRole(SD.Role_Company)).GetAwaiter().GetResult();
-            }
-
+            
             Input = new()
             {
                 RoleList = _roleManager.Roles.Select(x => x.Name).Select(i => new SelectListItem
