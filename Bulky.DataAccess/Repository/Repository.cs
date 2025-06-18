@@ -11,7 +11,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Bulky.DataAccess.Repository
 {
-    // <T> is a generic class
+    // <T> is a generic class and it is type independent
 
     public class Repository<T> : IRepository<T> where T : class
     {
